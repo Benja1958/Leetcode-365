@@ -10,3 +10,12 @@ This repository tracks my journey of solving **one LeetCode problem every day** 
 - Maintain solutions in Python.
 - Track explanations and optimizations.
 - Improve consistency in problem-solving and coding.
+
+
+## 🏆 Progress Tracker
+
+| Date       | Problem        | Difficulty | Solution |
+|------------|---------------|------------|----------|
+| 2024-03-04 | Merge Two Sorted Arrays | Medium | [Python](problems/2024-03-04-Merge-Sorted-Array.py) |
+
+
