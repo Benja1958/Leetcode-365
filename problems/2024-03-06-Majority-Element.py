@@ -28,6 +28,10 @@ class Solution:
 def main():
     nums = [2,2,1,1,1,2,2]
 
-    solution = Solution.majorityElement(nums)
+    solution = Solution()
+    result = solution.majorityElement(nums)
 
-    print("The majority element")
+    print("The majority element:", result)
+
+if __name__ == "__main__":
+    main()
