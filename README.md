@@ -21,6 +21,8 @@ This repository tracks my journey of solving **one LeetCode problem every day** 
 | 2025-03-06 | Majority Element | Easy | [Python](problems/2025-03-06-Majority-Element.py) |
 | 2025-03-07 | Rotate Array | Medium | [Python](problems/2025-03-07-Rotate-Array.py) |
 | 2025-03-08 | Best Time to Buy and Sell Stock | Easy | [Python](problems/2025-03-08-Best-Time-to-Buy-and-Sell-Stock.py) |
+| 2025-03-10 | Best Time to Buy and Sell Stock II | Medium | [Python](problems/2025-03-08-Best-Time-to-Buy-and-Sell-Stock-II.py) |
+| 2025-03-11 | Jump Game | Medium | [Python](problems/2025-03-11-Jump-Game.py) |
 
 
 
