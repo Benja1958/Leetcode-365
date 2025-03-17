@@ -24,7 +24,7 @@ This repository tracks my journey of solving **one LeetCode problem every day** 
 | 2025-03-10 | Best Time to Buy and Sell Stock II | Medium | [Python](problems/2025-03-08-Best-Time-to-Buy-and-Sell-Stock-II.py) |
 | 2025-03-11 | Jump Game | Medium | [Python](problems/2025-03-11-Jump-Game.py) |
 | 2025-03-13 | Jump Game II | Medium | [Python](problems/2025-03-11-Jump-Game-II.py) |
-| 2025-03-16 | H Index | Medium | [Python](problems/2025-03-16-H-Index.py) |
+| 2025-03-16 | H-Index | Medium | [Python](problems/2025-03-16-H-Index.py) |
 
 
 
