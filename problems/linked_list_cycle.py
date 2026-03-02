@@ -42,4 +42,3 @@ if __name__ == "__main__":
     c.next = a
 
     print(node.hasCycle(head))
-
