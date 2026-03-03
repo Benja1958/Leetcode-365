@@ -80,6 +80,37 @@ class Solution:
         new_tail.next = None
 
         return new_head
+    
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        #use two linked lists, one for less than and the other one for greater than x nodes
+        #at the end we connect them
+
+        #creating dummy nodes to help in connecting
+        less_dummy = ListNode(0)
+        greater_dummy = ListNode(0)
+        less_tail = less_dummy
+        greater_tail = greater_dummy
+
+        #iterate through the given 
+        cur = head
+        while cur:
+            #get the next node after current, detach the nodes
+            nxt = cur.next
+            cur.next = None
+
+            #add the necessary nodes to their nodes
+            if cur.val < x:
+                less_tail.next = cur
+                less_tail = less_tail.next
+            else:
+                greater_tail.next = cur
+                greater_tail = greater_tail.next
+            cur = nxt
+        
+        #connect the two lists
+        less_tail.next = greater_dummy.next
+
+        return less_dummy.next
         
 
 
@@ -101,12 +132,16 @@ if __name__ =="__main__":
     m2 = ListNode(1, ListNode(3, ListNode(4)))
 
     #input for rotate list
-    r1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+    r1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5, ListNode(2))))))
+
+    #input for partition list
+    p1 = ListNode(1, ListNode(4, ListNode(3, ListNode(2, ListNode(7, ListNode(5, ListNode(2)))))))
 
     linked_list = Solution()
     sum_result = linked_list.addTwoNumbers(l1, l2)
     merge_result = linked_list.mergeTwoLists(m1, m2)
     rotate_list = linked_list.rotateRight(r1, 2)
+    partition = linked_list.partition(p1, 3)
 
     print("addTwoNumbers:")
     print_linked_list(sum_result)
@@ -114,3 +149,6 @@ if __name__ =="__main__":
     print_linked_list(merge_result)
     print("rotateList:")
     print_linked_list(rotate_list)
+    print("Partition:")
+    print_linked_list(partition)
+
