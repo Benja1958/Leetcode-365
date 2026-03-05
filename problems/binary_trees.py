@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from collections import deque
 
 # Definition for a binary tree node.
@@ -67,6 +67,22 @@ class Solution:
             queue.append((a.right, b.left))
             queue.append((a.left, b.right))
         return True
+    
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        #the first node in the preorder, is the rood node
+        #all the nodes to the left of the root node from preorder in inorder will be on the left
+        #all the nodes to the right of root node prom preorder in inorder will be on the right
+
+        #base case for no tree
+        if not preorder or not inorder:
+            return None
+
+        root = TreeNode(preorder[0])
+        mid = inorder.index(preorder[0])
+        root.left = self.buildTree(preorder[1:], inorder[:mid])
+        root.right = self.buildTree(preorder[mid + 1:], inorder[mid + 1:])
+
+        return root
     
 
 
@@ -157,4 +173,34 @@ if __name__ == "__main__":
     #----------SYMMETRIC TREE---------
     S = build_tree([1,2,2,3,4,4,3])
     print(sol.isSymmetric(S))
+
+    #----------BUILD TREE (PREORDER + INORDER)---------
+    build_tree_tests = [
+        {
+            "preorder": [3, 9, 20, 15, 7],
+            "inorder": [9, 3, 15, 20, 7],
+            "expected": [3, 9, 20, None, None, 15, 7],
+        },
+        {
+            "preorder": [-1],
+            "inorder": [-1],
+            "expected": [-1],
+        },
+        {
+            "preorder": [],
+            "inorder": [],
+            "expected": [],
+        },
+        {
+            "preorder": [1, 2, 3],
+            "inorder": [1, 2, 3],
+            "expected": [1, None, 2, None, 3],
+        },
+    ]
+
+    for i, tc in enumerate(build_tree_tests, start=1):
+        built = sol.buildTree(tc["preorder"], tc["inorder"])
+        actual = tree_to_level_order(built)
+        print(f"buildTree test {i}: {actual} | expected: {tc['expected']}")
+        assert actual == tc["expected"], f"buildTree test {i} failed"
     
