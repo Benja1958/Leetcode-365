@@ -19,6 +19,25 @@ class Solution:
             and self.isSameTree(p.left, q.left)
             and self.isSameTree(p.right, q.right)
         )
+    
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        #we will have a base case that inverts the nodes
+        #recusrcively call the fuunction with left and right
+        if not root:
+            return None
+        
+        #swap case
+        root.left, root.right = root.right, root.left
+
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+
+        return root
+    
+
+
+
+
 
 def build_tree(level_order):
     """Builds a binary tree from a level-order list like [1,2,3,None,4]."""
@@ -48,9 +67,34 @@ def build_tree(level_order):
 
     return root
 
+def tree_to_level_order(root):
+    """Converts a binary tree to level-order list format."""
+    if not root:
+        return []
+
+    result = []
+    q = deque([root])
+
+    while q:
+        node = q.popleft()
+        if node is None:
+            result.append(None)
+            continue
+
+        result.append(node.val)
+        q.append(node.left)
+        q.append(node.right)
+
+    # remove trailing None values for cleaner output
+    while result and result[-1] is None:
+        result.pop()
+
+    return result
+
 if __name__ == "__main__":
     sol = Solution()
 
+    #----------SAME TREE-----------
     # Example 1
     p = build_tree([1, 2, 3])
     q = build_tree([1, 2, 3])
@@ -70,3 +114,9 @@ if __name__ == "__main__":
     p = build_tree([])
     q = build_tree([])
     print(sol.isSameTree(p, q))  # expected: True
+
+    #-----------INVERT TREE----------
+    t = build_tree([4,2,7,1,3,6,9])
+    inverted = sol.invertTree(t)
+    print(tree_to_level_order(inverted))  # expected: [4, 7, 2, 9, 6, 3, 1]
+    
