@@ -34,6 +34,40 @@ class Solution:
 
         return root
     
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        #will compare tree at each given level
+        #will create a helper function to helpe in 
+        #Recursive approach 
+        # def isMirror(a, b):
+        #     if not a and not b:
+        #         return True
+        #     if not a or not b:
+        #         return False
+        #     if a.val != b.val:
+        #         return False
+
+        #     return isMirror(a.left, b.right) and isMirror(a.right, b.left)
+        
+        # return isMirror(root.left, root.right)
+
+
+        #ITERATIVE APPROACH
+        #using BFS
+        queue = deque([(root.left, root.right)])
+        while queue:
+            a, b = queue.popleft()
+
+            if not a and not b:
+                continue
+            if not a or not b:
+                return False
+            if a.val != b.val:
+                return False
+            
+            queue.append((a.right, b.left))
+            queue.append((a.left, b.right))
+        return True
+    
 
 
 
@@ -119,4 +153,8 @@ if __name__ == "__main__":
     t = build_tree([4,2,7,1,3,6,9])
     inverted = sol.invertTree(t)
     print(tree_to_level_order(inverted))  # expected: [4, 7, 2, 9, 6, 3, 1]
+
+    #----------SYMMETRIC TREE---------
+    S = build_tree([1,2,2,3,4,4,3])
+    print(sol.isSymmetric(S))
     
