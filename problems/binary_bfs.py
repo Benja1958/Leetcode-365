@@ -61,6 +61,60 @@ class Solution:
             result.append(avg)
 
         return result
+    
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        #use bfs in the traversal
+        #check if right to left, reverse the level
+        if not root:
+            return []
+
+        result = []   
+        left_to_right = True
+        q = deque([root])
+
+        #traverse the queue
+        while q:
+            level_len = len(q)
+
+            #append the level nodes
+            level = []
+            for _ in range(level_len):
+                node = q.popleft()
+                level.append(node.val)
+
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right) 
+            
+            if not left_to_right:
+                level.reverse()
+            result.append(level)
+            left_to_right = not left_to_right
+
+        return result
+    
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        #i will use bfs traversal where i will initialize a queue
+        #in the traversal first i get the length of the queue before proceeding
+        queue = deque([root])
+        result = []
+
+        while queue:
+            len_q = len(queue)
+            values = []
+
+            #loop throufht that level
+            for i in range(len_q):
+                node = queue.popleft()
+                if node:
+                    values.append(node.val)
+                    queue.append(node.left)
+                    queue.append(node.right)
+            if values:
+                result.append(values)
+
+        return result
 
 
 def build_tree(level_order: List[Optional[int]]) -> Optional[TreeNode]:
@@ -124,3 +178,33 @@ if __name__ == "__main__":
         assert actual == tc["expected"], f"averageOfLevels test {i} failed"
 
     print("All averageOfLevels tests passed.")
+
+    zigzag_level_order_tests = [
+        {"tree": [3, 9, 20, None, None, 15, 7], "expected": [[3], [20, 9], [15, 7]]},
+        {"tree": [1], "expected": [[1]]},
+        {"tree": [], "expected": []},
+        {"tree": [1, 2, 3, 4, 5, 6, 7], "expected": [[1], [3, 2], [4, 5, 6, 7]]},
+    ]
+
+    for i, tc in enumerate(zigzag_level_order_tests, start=1):
+        root = build_tree(tc["tree"])
+        actual = sol.zigzagLevelOrder(root)
+        print(f"zigzagLevelOrder test {i}: {actual} | expected: {tc['expected']}")
+        assert actual == tc["expected"], f"zigzagLevelOrder test {i} failed"
+
+    print("All zigzagLevelOrder tests passed.")
+
+    level_order_tests = [
+        {"tree": [3, 9, 20, None, None, 15, 7], "expected": [[3], [9, 20], [15, 7]]},
+        {"tree": [1], "expected": [[1]]},
+        {"tree": [], "expected": []},
+        {"tree": [1, 2, 3, 4, None, None, 5], "expected": [[1], [2, 3], [4, 5]]},
+    ]
+
+    for i, tc in enumerate(level_order_tests, start=1):
+        root = build_tree(tc["tree"])
+        actual = sol.levelOrder(root)
+        print(f"levelOrder test {i}: {actual} | expected: {tc['expected']}")
+        assert actual == tc["expected"], f"levelOrder test {i} failed"
+
+    print("All levelOrder tests passed.")
