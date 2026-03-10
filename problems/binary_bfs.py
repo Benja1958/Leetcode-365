@@ -35,6 +35,32 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
         return result
+    
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        #use bfs
+        if not root:
+            return []
+        
+        q = deque([root])
+        result = []
+
+        while q:
+            level_len = len(q)
+            total = 0
+
+            for _ in range(level_len):
+                node = q.popleft()
+                total += node.val
+
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+
+            avg = total / level_len
+            result.append(avg)
+
+        return result
 
 
 def build_tree(level_order: List[Optional[int]]) -> Optional[TreeNode]:
@@ -67,7 +93,7 @@ def build_tree(level_order: List[Optional[int]]) -> Optional[TreeNode]:
 if __name__ == "__main__":
     sol = Solution()
 
-    tests = [
+    right_side_view_tests = [
         {"tree": [1, 2, 3, None, 5, None, 4], "expected": [1, 3, 4]},
         {"tree": [1, None, 3], "expected": [1, 3]},
         {"tree": [], "expected": []},
@@ -75,10 +101,26 @@ if __name__ == "__main__":
         {"tree": [1, 2, 3, 4], "expected": [1, 3, 4]},
     ]
 
-    for i, tc in enumerate(tests, start=1):
+    for i, tc in enumerate(right_side_view_tests, start=1):
         root = build_tree(tc["tree"])
         actual = sol.rightSideView(root)
-        print(f"test {i}: {actual} | expected: {tc['expected']}")
-        assert actual == tc["expected"], f"test {i} failed"
+        print(f"rightSideView test {i}: {actual} | expected: {tc['expected']}")
+        assert actual == tc["expected"], f"rightSideView test {i} failed"
 
     print("All rightSideView tests passed.")
+
+    average_of_levels_tests = [
+        {"tree": [3, 9, 20, None, None, 15, 7], "expected": [3.0, 14.5, 11.0]},
+        {"tree": [3, 9, 20, 15, 7], "expected": [3.0, 14.5, 11.0]},
+        {"tree": [1], "expected": [1.0]},
+        {"tree": [], "expected": []},
+        {"tree": [5, 14, -3], "expected": [5.0, 5.5]},
+    ]
+
+    for i, tc in enumerate(average_of_levels_tests, start=1):
+        root = build_tree(tc["tree"])
+        actual = sol.averageOfLevels(root)
+        print(f"averageOfLevels test {i}: {actual} | expected: {tc['expected']}")
+        assert actual == tc["expected"], f"averageOfLevels test {i} failed"
+
+    print("All averageOfLevels tests passed.")
